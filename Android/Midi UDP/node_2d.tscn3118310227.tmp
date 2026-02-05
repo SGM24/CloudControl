@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbwtr0wmttotn"]
+
+[ext_resource type="Script" uid="uid://dl88nn61xd6cj" path="res://node_2d.gd" id="1_0e48y"]
+[ext_resource type="Texture2D" uid="uid://bqqjjl7q8e8wl" path="res://icon.svg" id="2_epypp"]
+
+[sub_resource type="Theme" id="Theme_0e48y"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_0e48y")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 1088.0
+offset_bottom = 578.0
+
+[node name="Label" type="Label" parent="."]
+offset_left = 271.0
+offset_top = 22.0
+offset_right = 311.0
+offset_bottom = 45.0
+theme = SubResource("Theme_0e48y")
+text = "C"
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(1069, 58)
+texture = ExtResource("2_epypp")

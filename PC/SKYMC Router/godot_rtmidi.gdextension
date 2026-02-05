@@ -1,0 +1,12 @@
+[configuration]
+entry_symbol = "GDExtensionInit"
+compatibility_minimum = 4.1
+
+[icons]
+Example = "icons/Example.svg"
+
+[libraries]
+linux.x86_64 = "lib/Linux-x86_64/libgodot_rtmidi.so"
+macos.arm64 = "lib/Darwin-universal/libgodot_rtmidi.dylib"
+macos.x86_64 = "lib/Darwin-universal/libgodot_rtmidi.dylib"
+windows.x86_64 = "lib/Windows-AMD64/godot_rtmidi.dll"

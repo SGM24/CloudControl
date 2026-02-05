@@ -1,0 +1,156 @@
+[gd_scene load_steps=10 format=3 uid="uid://ng8c7l524kn7"]
+
+[ext_resource type="Script" uid="uid://cjvr02ig8ckof" path="res://button.gd" id="1_0kkfq"]
+[ext_resource type="Texture2D" uid="uid://726loubhf0xr" path="res://both.svg" id="2_0kkfq"]
+[ext_resource type="Theme" uid="uid://bddoqsq87kqid" path="res://text.tres" id="2_lc4xp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0kkfq"]
+bg_color = Color(1, 1, 1, 0.21960784)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="Animation" id="Animation_0kkfq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:theme_override_styles/panel:bg_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.21960784)]
+}
+
+[sub_resource type="Animation" id="Animation_lc4xp"]
+resource_name = "press"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.19999999),
+"transitions": PackedFloat32Array(0.22531268, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:theme_override_styles/panel:bg_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(0.25, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.21960784), Color(1, 1, 1, 0.4509804), Color(1, 1, 1, 0.21960784)]
+}
+
+[sub_resource type="Animation" id="Animation_mc1yv"]
+resource_name = "release"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1.25, 1),
+"update": 0,
+"values": [Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:theme_override_styles/panel:bg_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1.25, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.4509804), Color(1, 1, 1, 0.21960784)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mc1yv"]
+_data = {
+&"RESET": SubResource("Animation_0kkfq"),
+&"press": SubResource("Animation_lc4xp"),
+&"release": SubResource("Animation_mc1yv")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0kkfq"]
+size = Vector2(165, 165)
+
+[node name="0" type="Control"]
+layout_mode = 3
+anchor_left = 0.056
+anchor_top = 0.09900001
+anchor_right = 0.056
+anchor_bottom = 0.09900001
+offset_left = 63.488
+offset_top = 63.847977
+offset_right = 63.488
+offset_bottom = 63.847977
+script = ExtResource("1_0kkfq")
+
+[node name="ColorRect" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_0kkfq")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+theme = ExtResource("2_lc4xp")
+text = "C"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_mc1yv")
+}
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+position = Vector2(-58.181816, -58.181816)
+scale = Vector2(0.9090909, 0.9090909)
+texture_normal = ExtResource("2_0kkfq")
+shape = SubResource("RectangleShape2D_0kkfq")
+passby_press = true
+
+[connection signal="pressed" from="TouchScreenButton" to="." method="_on_touch_screen_button_pressed"]
+[connection signal="released" from="TouchScreenButton" to="." method="_on_touch_screen_button_released"]

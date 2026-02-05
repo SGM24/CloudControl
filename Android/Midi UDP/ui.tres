@@ -1,0 +1,32 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://d0ku8sc22vh5l"]
+
+[ext_resource type="Texture2D" uid="uid://dnf126ahb6np7" path="res://Proyecto nuevo(2).svg" id="1_i6sfk"]
+
+[sub_resource type="DPITexture" id="DPITexture_1qiyq"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#fff\" fill-opacity=\".75\" rx=\"7\"/><circle cx=\"24\" cy=\"8\" r=\"5\" fill=\"#1a1a1a\"/></svg>
+"
+base_scale = 2.0
+
+[sub_resource type="DPITexture" id="DPITexture_i6sfk"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><g fill-opacity=\".5\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#1a1a1a\" rx=\"7\"/><circle cx=\"8\" cy=\"8\" r=\"5\" fill=\"#fff\"/></g></svg>
+"
+base_scale = 2.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i6sfk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iokc4"]
+
+[resource]
+Button/constants/outline_size = 12
+Button/font_sizes/font_size = 36
+CheckButton/constants/outline_size = 12
+CheckButton/font_sizes/font_size = 36
+CheckButton/icons/checked = SubResource("DPITexture_1qiyq")
+CheckButton/icons/unchecked = SubResource("DPITexture_i6sfk")
+Label/constants/outline_size = 12
+Label/font_sizes/font_size = 36
+VSlider/constants/center_grabber = 1
+VSlider/icons/grabber = ExtResource("1_i6sfk")
+VSlider/icons/grabber_highlight = ExtResource("1_i6sfk")
+VSlider/styles/grabber_area = SubResource("StyleBoxEmpty_i6sfk")
+VSlider/styles/grabber_area_highlight = SubResource("StyleBoxEmpty_iokc4")
