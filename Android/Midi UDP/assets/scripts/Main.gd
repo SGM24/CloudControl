@@ -21,6 +21,10 @@ var total_buttons : int = 0
 @export var button_scene : PackedScene
 @export var stream_player : PackedScene
 @export var button_icons : Array[CompressedTexture2D]
+@export var top : Control
+@export var bottom : Control
+@export var left : Control
+@export var right : Control
 var sustain : bool = false
 var midi_on : bool = false
 var sound : bool = false
@@ -242,3 +246,24 @@ func _on_pitch_bend_value_changed(value: float) -> void:
 		for i in nodes:
 			if i is AudioStreamPlayer:
 				i.pitch_scale = i.base_pitch * bend_pitch_multiplier
+
+var ui_tween : Tween
+func _on_check_box_toggled(toggled_on: bool) -> void:
+	if ui_tween and ui_tween.is_valid():
+		ui_tween.kill()
+	ui_tween = create_tween()
+	ui_tween.set_parallel()
+	var delay = 0
+	for node in right.get_children():
+		if not node.has_meta("home_x"):
+			node.set_meta("home_x",node.position.x)
+		var home_x = node.get_meta("home_x")
+		var target_x = home_x - 220.0 if toggled_on else home_x
+		ui_tween.tween_property(node,"position:x",target_x,0.3).set_delay(delay)
+		ui_tween.set_trans(Tween.TRANS_SINE)
+		if !toggled_on:
+			ui_tween.set_ease(Tween.EASE_IN)
+		else:
+			ui_tween.set_ease(Tween.EASE_OUT)
+		ui_tween.tween_interval(0.5)
+		delay += 0.2
