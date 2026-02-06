@@ -75,6 +75,7 @@ func _on_note_pressed(note):
 		var stream = stream_player.instantiate()
 		stream.pitch_scale = pow(2.0, (note - 69.0) / 12.0)
 		stream.name = str(note)
+		stream.base_pitch = stream.pitch_scale
 		add_child(stream)
 
 func _on_note_released(note : int ):
@@ -226,5 +227,18 @@ func _on_v_slider_drag_ended(value_changed: bool) -> void:
 
 
 
-func _on_v_slider_changed() -> void:
-	pass # Replace with function body.
+
+func _on_pitch_bend_value_changed(value: float) -> void:
+	# calculation of the separated 4 bits from the 14 bits
+	var _value = int(value)
+	var lsb = _value & 0x7F
+	var msb = (_value >> 7) & 0x7F
+	send_data([0xE0, lsb, msb])
+	# emulation of the pitch bend:
+	if sound:
+		var bend_semitones = ((value - 8192.0) / 8192.0) * 2.0
+		var bend_pitch_multiplier = pow(2.0, bend_semitones / 12)
+		var nodes = get_children()
+		for i in nodes:
+			if i is AudioStreamPlayer:
+				i.pitch_scale = i.base_pitch * bend_pitch_multiplier
