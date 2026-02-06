@@ -248,22 +248,28 @@ func _on_pitch_bend_value_changed(value: float) -> void:
 				i.pitch_scale = i.base_pitch * bend_pitch_multiplier
 
 var ui_tween : Tween
-func _on_check_box_toggled(toggled_on: bool) -> void:
-	if ui_tween and ui_tween.is_valid():
-		ui_tween.kill()
+func ui_tweener_handler(toggled_on :bool ,root : Node, add_pos : Vector2 ,time :float,delay_add : float, interval : float):
 	ui_tween = create_tween()
 	ui_tween.set_parallel()
 	var delay = 0
-	for node in right.get_children():
-		if not node.has_meta("home_x"):
-			node.set_meta("home_x",node.position.x)
-		var home_x = node.get_meta("home_x")
-		var target_x = home_x - 220.0 if toggled_on else home_x
-		ui_tween.tween_property(node,"position:x",target_x,0.3).set_delay(delay)
+	for node in root.get_children():
+		if not node.has_meta("home_pos"):
+			node.set_meta("home_pos",node.position)
+		var home_pos = node.get_meta("home_pos")
+		var target_pos = home_pos + add_pos if toggled_on else home_pos
+		ui_tween.tween_property(node,"position",target_pos,time).set_delay(delay)
 		ui_tween.set_trans(Tween.TRANS_SINE)
-		if !toggled_on:
-			ui_tween.set_ease(Tween.EASE_IN)
-		else:
-			ui_tween.set_ease(Tween.EASE_OUT)
-		ui_tween.tween_interval(0.5)
-		delay += 0.2
+		ui_tween.set_ease(Tween.EASE_OUT)
+		ui_tween.tween_interval(interval)
+		delay += delay_add
+
+
+func _on_check_box_toggled(toggled_on: bool) -> void:
+	ui_tweener_handler(toggled_on,right,Vector2(-220,0), 0.3,0.2 ,0.5)
+
+
+func _on_check_box_2_toggled(toggled_on: bool) -> void:
+	ui_tweener_handler(toggled_on,left,Vector2(180,0), 0.3,0.2 ,0.5)
+
+func _on_check_box_3_toggled(toggled_on: bool) -> void:
+	ui_tweener_handler(toggled_on,top,Vector2(0,70), 0.3,0.2 ,0.5)
