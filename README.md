@@ -24,7 +24,7 @@ Current Release : Alpha V1.0
 |⚠️ Works with issues|
 |✅ Works|
 
-Cloud keys (Mobile) 
+##Cloud keys (Mobile) 
 | Features | But... |
 | --- | --- |
 |✅ isophomorphic layout (WIP)| Work in progress, Needs better UI |
@@ -41,7 +41,7 @@ Cloud keys (Mobile)
 ![Alt text](https://github.com/SGM24/CloudControl/blob/main/screenshots/V%C3%ADdeo%20sin%20t%C3%ADtulo%20%E2%80%90%20Hecho%20con%20Clipchamp.gif?raw=true)
 
 
-Cloud Router (Desktop)
+##Cloud Router (Desktop)
 | Features | But... |
 | --- | --- |
 |✅ UDP Router| Needs better UI |
