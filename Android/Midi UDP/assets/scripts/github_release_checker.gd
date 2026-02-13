@@ -6,7 +6,7 @@ var update_check_error : int = 0 # 0 = none, 1 = connection error # 2 = parsing 
 var raw_update_check_error : int = 0 # 3 = cant connect
 var version_string : String = ""
 var version_int : int = 0
-const Current_Version = 1100000 # first digit ; 1 = alpha, 2 Beta, 3 release, Then we use 2 digits to represent bigger versions, like V1.0.15
+const Current_Version = 1010101 # first digit ; 1 = alpha, 2 Beta, 3 release, Then we use 2 digits to represent bigger versions, like V1.0.15
 const Github_Page = "https://github.com/Mejolov24/CloudControl/releases"
 @export var root : Control
 @export var label : Label
@@ -39,7 +39,7 @@ func _request_completed(result, response_code, headers, body):
 						var major : int = int(parts[0])
 						var minor : int = int(parts[1])
 						var patch : int = int(parts[2])
-						version_int += (major * 100000 + (minor * 10000) + (patch * 100) )
+						version_int += (major * 10000 + (minor * 100) + patch )
 					else : update_check_error = 2 
 				else : update_check_error = 2
 	elif result == 3:
