@@ -3,5 +3,4 @@
 
 # Language Statistics Overrides
 *.html linguist-vendored
-
-*.tex linguist-vendored
+*.TeX linguist-vendored
