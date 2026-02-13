@@ -17,7 +17,7 @@ config/icon="res://assets/icons/icon.svg"
 
 [autoload]
 
-GithubReleaseChecker="*res://assets/scripts/github_release_checker.gd"
+TweeningSystem="*res://assets/scripts/Tweening_system.gd"
 
 [display]
 

@@ -48,6 +48,8 @@ func _ready() -> void:
 		var scale_name = all_scale_names[i]
 		scale_selector.add_item(scale_name)
 	scale_selector.select(1)
+	#hiding grid in case before update check
+
 
 var packet_queue : Array = []
 var delay_timer : float = 0.0
@@ -56,9 +58,11 @@ const DELAY_BETWEEN_PACKETS : float = 0.01
 func send_data(data_array: Array):
 	if ip_address != "":
 		packet_queue.append(data_array)
-
+var hided_grid : bool = false #check if we already tweened menu, used in startup
 func _process(delta: float) -> void:
-# wait for packets
+	if !hided_grid:
+		TweeningSystem.ui_tweener_handler(true,grid,Vector2(0,-600), 0,0)
+		hided_grid = true
 	if packet_queue.size() > 0:
 		delay_timer += delta
 		if delay_timer >= DELAY_BETWEEN_PACKETS:
@@ -259,43 +263,20 @@ func _on_pitch_bend_value_changed(value: float) -> void:
 			if i is AudioStreamPlayer:
 				i.pitch_scale = i.base_pitch * bend_pitch_multiplier
 
-
-func ui_tweener_handler(toggled_on :bool ,root : Node, add_pos : Vector2 ,time :float,delay_add : float, initial_delay : float,reverse : bool):
-	var childrens = root.get_children()
-	if reverse: childrens.reverse()
-	if initial_delay > 0:
-		await get_tree().create_timer(initial_delay).timeout
-	var ui_tween = create_tween()
-	ui_tween.set_parallel()
-	var delay = 0
-	for node in childrens:
-		if not node.has_meta("home_pos"):
-			node.set_meta("home_pos",node.position)
-		var home_pos = node.get_meta("home_pos")
-		var target_pos = home_pos + add_pos if toggled_on else home_pos
-		ui_tween.tween_property(node,"position",target_pos,time).set_delay(delay)
-		ui_tween.set_trans(Tween.TRANS_SINE)
-		if toggled_on:
-			ui_tween.set_ease(Tween.EASE_OUT)
-		else:
-			ui_tween.set_ease(Tween.EASE_IN)
-		delay += delay_add
-
-
 func _on_check_box_toggled(toggled_on: bool) -> void:
-	ui_tweener_handler(toggled_on,right,Vector2(-220,0), 0.3,0.2 ,0,false)
+	TweeningSystem.ui_tweener_handler(toggled_on,right,Vector2(-220,0), 0.3,0.2 ,0,false)
 
 
 func _on_check_box_2_toggled(toggled_on: bool) -> void:
-	ui_tweener_handler(toggled_on,left,Vector2(180,0), 0.3,0.2,0,false)
+	TweeningSystem.ui_tweener_handler(toggled_on,left,Vector2(180,0), 0.3,0.2,0,false)
 
 func _on_check_box_3_toggled(toggled_on: bool) -> void:
-	ui_tweener_handler(toggled_on,top,Vector2(0,70), 0.3,0.2,0,false)
+	TweeningSystem.ui_tweener_handler(toggled_on,top,Vector2(0,70), 0.3,0.2,0,false)
 
 
 func _on_check_box_4_toggled(toggled_on: bool) -> void:
-	ui_tweener_handler(toggled_on,color_picker,Vector2(0,-600), 0.8,0.2,toggled_on,false)
-	ui_tweener_handler(toggled_on,grid,Vector2(0,-600), 0.8,0.1,0,!toggled_on)
+	TweeningSystem.ui_tweener_handler(toggled_on,color_picker,Vector2(0,-600), 0.8,0.2,toggled_on,false)
+	TweeningSystem.ui_tweener_handler(toggled_on,grid,Vector2(0,-600), 0.8,0.1,0,!toggled_on)
 
 
 func _on_color_picker_color_changed(color: Color) -> void:
@@ -310,4 +291,4 @@ func _on_button_toggled(toggled_on: bool) -> void:
 
 
 func _on_check_box_5_toggled(toggled_on: bool) -> void:
-	ui_tweener_handler(toggled_on,graphs,Vector2(0,-120), 0.3,0.2 ,0,false)
+	TweeningSystem.ui_tweener_handler(toggled_on,graphs,Vector2(0,-120), 0.3,0.2 ,0,false)

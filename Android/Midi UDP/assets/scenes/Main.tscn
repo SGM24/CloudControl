@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cbwtr0wmttotn"]
+[gd_scene load_steps=15 format=3 uid="uid://cbwtr0wmttotn"]
 
 [ext_resource type="Script" uid="uid://dl88nn61xd6cj" path="res://assets/scripts/Main.gd" id="1_npkpr"]
 [ext_resource type="PackedScene" uid="uid://ng8c7l524kn7" path="res://assets/scenes/Button.tscn" id="2_eruk6"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bhoj6bnrhgqyl" path="res://assets/icons/template.svg" id="8_cb1w8"]
 [ext_resource type="Script" uid="uid://drc13lsqramsr" path="res://assets/scripts/ui_button.gd" id="9_ittna"]
 [ext_resource type="Shader" uid="uid://dqowy258xptdg" path="res://assets/scenes/brightness.gdshader" id="10_cfala"]
+[ext_resource type="Script" uid="uid://xc1x8vgq2e0q" path="res://assets/scripts/github_release_checker.gd" id="12_0tkjb"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cb1w8"]
 
@@ -537,6 +538,56 @@ antialiased = true
 script = ExtResource("8_ajan2")
 x_scale = 3.0
 
+[node name="update_display" type="Control" parent="." node_paths=PackedStringArray("root", "label", "grid")]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -192.0
+offset_right = -152.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("12_0tkjb")
+root = NodePath(".")
+label = NodePath("Panel/Label")
+grid = NodePath("../center/CenterContainer/GridContainer")
+
+[node name="Panel" type="Panel" parent="update_display"]
+layout_mode = 0
+offset_left = -72.0
+offset_right = 512.0
+offset_bottom = 312.0
+theme = ExtResource("2_xt100")
+
+[node name="Label" type="Label" parent="update_display/Panel"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 32.0
+offset_right = 568.0
+offset_bottom = 135.0
+text = "Update detected! VXX.XX.XX	would you like to download it?"
+autowrap_mode = 3
+
+[node name="update" type="Button" parent="update_display/Panel"]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 184.0
+offset_right = 519.0
+offset_bottom = 242.0
+text = "Yes"
+
+[node name="cancel" type="Button" parent="update_display/Panel"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 184.0
+offset_right = 208.0
+offset_bottom = 242.0
+text = "No
+"
+
 [connection signal="text_changed" from="top/osc_ip" to="." method="_on_osc_ip_text_changed"]
 [connection signal="text_changed" from="top/osc_port" to="." method="_on_osc_port_text_changed"]
 [connection signal="pressed" from="top/Button" to="." method="_on_button_pressed"]
@@ -561,3 +612,5 @@ x_scale = 3.0
 [connection signal="pressed" from="right/rows/rowp" to="." method="_on_rowp_pressed"]
 [connection signal="pressed" from="right/rows/rowm" to="." method="_on_rowm_pressed"]
 [connection signal="color_changed" from="color_picker/Panel/ColorPicker" to="." method="_on_color_picker_color_changed"]
+[connection signal="pressed" from="update_display/Panel/update" to="update_display" method="_on_update_pressed"]
+[connection signal="pressed" from="update_display/Panel/cancel" to="update_display" method="_on_cancel_pressed"]
